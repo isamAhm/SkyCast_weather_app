@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.background {
+    background-image: url("/build/assets/images/w.jpg");
+    background-size: cover;
+}
+
+.weather-bg {
+    transition: opacity 0.5s ease-in-out;
+}
+
+.iconsbg {
+    background-image: linear-gradient(69.7deg, rgba(216, 81, 82, 1) 40%, rgba(154, 27, 69, 1) 100.1%);
+}
+
+.sidebar {
+    background-image: linear-gradient(85.2deg, rgba(33, 3, 40, 1) 7.5%, rgba(65, 5, 72, 1) 88.7%);
+}
+
+@keyframes slide-right {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.weather_content {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.weather_content.slide-right {
+    animation: slide-right 0.5s forwards;
+}
+
+@keyframes slideLeft {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.slide-left {
+    animation: slideLeft 1s ease-out forwards;
+}
+
+.forecast-day {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+}
+
+.forecast-day img {
+    margin: 0 auto;
+}
+
+.forecast-day {
+    background-color: #1e3a8a;
+    color: white;
+}
+
+.hero {
+    font-family: 'Times New Roman', Times, serif;
+}

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SkyCast</title>
+    <link rel="stylesheet" href="/build/css/style.css" />
+    <link rel="icon" href="/build/assets/icon/icon2.ico" />
+    <link
+      rel="stylesheet"
+      href="/node_modules/@fortawesome/fontawesome-free/css/all.min.css"
+    />
+  </head>
+  <body class="background bg-black h-screen">
+    <section class="p-4 flex items-center">
+      <div class="w-1/4 max-md:w-[40%] fixed inset-0 bg-slate-950 px-4 py-10">
+        <div class="flex relative items-center max-md:mx-1 mx-8 my-0">
+          <input
+            class="rounded-md bg-slate-900 capitalize max-md:text-sm max-md:placeholder:text-[11px] w-full border-none text-white focus:outline-none cursor-text pl-3 py-[6.5px]"
+            type="text"
+            id="user_location"
+            placeholder="search for places..."
+          />
+          <select
+            class="converter absolute max-md:mt-20 max-md:left-0 right-11 outline-none max-md:right-0 max-md:w-10 max-md:z-50 border-0 rounded-md bg-slate-900 border-blue-800 text-blue-800 p-2 cursor-pointer"
+            title="converter"
+            id="converter"
+          >
+            <option class="text-gray-500">°C</option>
+            <option class="border-0 text-gray-500">°F</option>
+          </select>
+          <div class="max-md:relative flex items-center">
+            <i
+              class="fas fa-search text-blue-800 ml-1 text-lg bg-slate-900 bg-opacity-80 absolute right-0 pr-4 cursor-pointer"
+              onclick="findUserLocation()"
+            ></i>
+          </div>
+        </div>
+        <img
+          class="current_location size-[33px] max-md:mt-2 float-right -mr-2 -mt-[34px] border-slate-900 border-[1px] p-1 bg-slate-900 hover:shadow-md hover:shadow-blue-900 rounded-md hover:border-blue-800 hover:cursor-pointer"
+          src="/build/assets/images/my_place.png"
+          alt="current_location"
+          title="Current Location"
+          onclick="getCurrentLocationWeather()"
+        />
+
+        <div class="weather_content">
+          <div class="weather_icon mt-4"></div>
+          <h2 class="temprature text-white mt-4 max-md:text-3xl text-4xl"></h2>
+          <div class="feelslike text-white max-md:text-sm mt-2"></div>
+          <div class="discription text-white mt-2"></div>
+          <hr class="my-4 border-gray-500" />
+          <div class="date text-white"></div>
+          <div class="city text-white text-3xl font-bold mt-2 hero"></div>
+        </div>
+      </div>
+
+      <div
+        class="weather_output weather-bg z-50 slide-left w-3/4 text-white max-md:w-[60%] max-md:p-2 max-md:ml-[40%] fixed inset-0 ml-[25%] p-8 overflow-auto"
+      >
+        <h2 class="heading text-white mb-4 z-10 font-bold text-2xl">
+          Today's Highlights
+        </h2>
+        <div
+          class="Highlights grid grid-cols-3 max-md:grid-cols-2 grid-flow-row gap-x-4 gap-y-3"
+        >
+          <div
+            class="humidity grid h-52 max-md:h-24 items-center justify-center text-center iconsbg rounded-2xl p-4 hover:scale-[98%] hover:ease-in-out hover:duration-300"
+          >
+            Humidity
+            <i
+              class="fa-solid fa-water text-4xl max-md:text-base bg-gradient-to-br from-purple-600 to-gray-900 text-transparent bg-clip-text"
+            ></i>
+            <h1 id="Hvalue" class="text-white max-md:text-sm text-xl mt-2"></h1>
+          </div>
+          <div
+            class="Wind_Speed grid max-md:text-sm max-md:pt-1 h-52 max-md:h-24 items-center justify-center text-center iconsbg rounded-2xl p-4 hover:scale-[98%] hover:ease-in-out hover:duration-300"
+          >
+            Wind Speed
+            <i
+              class="fa-solid fa-wind text-4xl max-md:text-base bg-gradient-to-br from-purple-600 to-gray-900 text-transparent bg-clip-text"
+            ></i>
+            <h1 id="Wvalue" class="text-white max-md:text-sm text-xl mt-2"></h1>
+          </div>
+          <div
+            class="sun grid h-52 max-md:h-24 items-center max-md:p-1 justify-center text-center iconsbg rounded-2xl p-4 hover:scale-[98%] hover:ease-in-out hover:duration-300"
+          >
+            <span class="flex items-center gap-2 max-md:gap-1">
+              <i
+                class="fa-solid fa-sun text-4xl max-md:text-sm bg-gradient-to-br from-purple-600 to-gray-900 text-transparent bg-clip-text"
+              ></i>
+              <p class="text-white max-md:text-sm text-lg">
+                <span id="SRvalue"></span> Sunrise
+              </p>
+            </span>
+            <span class="flex items-center gap-2 max-md:gap-1">
+              <i
+                class="fa-regular fa-sun text-4xl max-md:text-sm bg-gradient-to-br from-purple-600 to-gray-900 text-transparent bg-clip-text"
+              ></i>
+              <p class="text-white max-md:text-sm text-lg">
+                <span id="SSvalue"></span> Sunset
+              </p>
+            </span>
+          </div>
+          <div
+            class="Clouds grid h-52 max-md:h-24 items-center justify-center text-center iconsbg rounded-2xl p-4 hover:scale-[98%] hover:ease-in-out hover:duration-300"
+          >
+            Clouds
+            <i
+              class="fa-solid fa-cloud text-4xl max-md:text-base bg-gradient-to-br from-purple-600 to-gray-900 text-transparent bg-clip-text"
+            ></i>
+            <h1 id="Cvalue" class="text-white max-md:text-sm text-xl mt-2"></h1>
+          </div>
+          <div
+            class="uv-index grid h-52 max-md:h-24 items-center justify-center text-center iconsbg rounded-2xl p-4 hover:scale-[98%] hover:ease-in-out hover:duration-300"
+          >
+            UV Index
+            <i
+              class="fa-solid fa-bacon text-4xl max-md:text-base bg-gradient-to-br from-purple-600 to-gray-900 text-transparent bg-clip-text"
+            ></i>
+            <h1
+              id="UVvalue"
+              class="text-white max-md:text-sm text-xl mt-2"
+            ></h1>
+          </div>
+          <div
+            class="pressure grid h-52 max-md:h-24 items-center justify-center text-center iconsbg rounded-2xl p-4 hover:scale-[98%] hover:ease-in-out hover:duration-300"
+          >
+            Pressure
+            <i
+              class="fa-solid fa-volcano text-4xl max-md:text-base bg-gradient-to-br from-purple-600 to-gray-900 text-transparent bg-clip-text"
+            ></i>
+            <h1 id="Pvalue" class="text-white max-md:text-sm text-xl mt-2"></h1>
+          </div>
+        </div>
+        <br />
+        <h2 class="heading text-white mb-4 font-bold text-2xl text">
+          This Week
+        </h2>
+        <div
+          class="forecast grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"
+        ></div>
+      </div>
+      <div
+        class="text-sm text-center pl-14 max-md:pl-4 text-gray-400 mt-[550px] z-50 max-md:text-xs max-md:mt-[555px]"
+      >
+        Copyright &copy; 2024 SkyCast&reg;.
+        <br />All rights reserved.
+      </div>
+    </section>
+    <script src="/config.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
